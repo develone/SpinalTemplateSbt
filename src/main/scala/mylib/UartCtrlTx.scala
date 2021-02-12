@@ -1,6 +1,9 @@
-package spinal.lib.com.uart
+package mylib
+//package spinal.lib.com.uart
 
 import spinal.core._
+import spinal.lib.com.uart._
+import spinal.lib.com.uart.UartCtrlGenerics._
 import spinal.lib.com.uart.UartStopType._
 import spinal.lib.{Counter, slave}
 import spinal.lib.fsm._
@@ -30,6 +33,12 @@ class UartCtrlTx(g : UartCtrlGenerics) extends Component {
       counter.increment()
     }
   }
+//Generate the MyTopLevel's Verilog
+object UartCtrlTxVerilog {
+  def main(args: Array[String]) {
+    SpinalVerilog(new UartCtrlTx)
+  }
+}
 
   // Count up each clockDivider.tick, used by the state machine to count up data bits and stop bits
   val tickCounter = new Area {
