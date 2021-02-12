@@ -36,7 +36,7 @@ class UartCtrlTx(g : UartCtrlGenerics) extends Component {
 //Generate the MyTopLevel's Verilog
 object UartCtrlTxVerilog {
   def main(args: Array[String]) {
-    SpinalVerilog(new UartCtrlTx)
+    SpinalVerilog(new UartCtrlTx(g:UartCtrlGenerics))
   }
 }
 
