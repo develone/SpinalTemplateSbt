@@ -1,3 +1,23 @@
+yosys -l simple.log -p 'synth_ice40 -blif UartCtrlUsageExample.blif -json MyTopLevel.json' UartCtrlUsageExample.v
+=== UartCtrlUsageExample ===
+
+   Number of wires:                211
+   Number of wire bits:            479
+   Number of public wires:         211
+   Number of public wire bits:     479
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                242
+     SB_CARRY                       37
+     SB_DFF                          9
+     SB_DFFE                        24
+     SB_DFFER                        8
+     SB_DFFES                        4
+     SB_DFFR                        44
+     SB_DFFS                         4
+     SB_LUT4                       112
+
 // Generator : SpinalHDL v1.4.3    git head : adf552d8f500e7419fff395b7049228e4bc5de26
 // Component : UartCtrlUsageExample
 // Git hash  : d815aeb23a35723b31eaf2f714c52d1629c4c439
