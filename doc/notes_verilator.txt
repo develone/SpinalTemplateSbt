@@ -1,0 +1,24 @@
+   simulation of MyTopLevel.v with verilator
+    
+    create sim_main.cpp      ~/iverilog-examples/ex-05-hello/helloworld_tb.cpp
+    chg #include "Vhelloworld.h" to #include "VMyTopLevel.h"
+    rm #include "uartsim.h"
+    chg     TESTB<Vhelloworld>      *tb
+                    = new TESTB<Vhelloworld>;
+    TESTB<VMyTopLevel>      *tb
+                    = new TESTB<VMyTopLevel>;
+    chg tb->opentrace("helloworld.vcd"); to tb->opentrace("MyTopLevel.vcd");
+    
+    create testb.h ~/iverilog-examples/ex-05-hello/testb.h
+    
+    chg i_clk to clk
+    
+    verilator -Wall --trace   -cc MyTopLevel.v --exe --build sim_main.cpp
+    
+    creates obj_dir with VMyTopLevel
+    
+    cd obj_dir
+    
+    ./VMyTopLevel creates MyTopLevel.vcd
+    
+    gtkwave MyTopLevel.vcd
