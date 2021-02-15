@@ -32,27 +32,29 @@
 #include <sys/types.h>
 #include <signal.h>
 #include "verilated.h"
-#include "VMyTopLevel.h"
+#include "VUartCtrlUsageExample.h"
 #include "testb.h"
 
 
 int	main(int argc, char **argv) {
 	Verilated::commandArgs(argc, argv);
-	TESTB<VMyTopLevel>	*tb
-		= new TESTB<VMyTopLevel>;
+	TESTB<VUartCtrlUsageExample>	*tb
+		= new TESTB<VUartCtrlUsageExample>;
 
 	Verilated::traceEverOn(true);    // Verilator must compute traced signals
     VL_PRINTF("Enabling waves...\n");
 
 
 
-	tb->opentrace("MyTopLevel.vcd");
-	tb->m_core->reset = 0;
-	for(unsigned clocks=0;clocks < 1000;clocks++) {
+	tb->opentrace("UartCtrlUsageExample.vcd");
+	//tb->m_core->reset = 0;
+	for(unsigned clocks=0;clocks < 10000;clocks++) {
+		/*
 		if (clocks==10) tb->m_core->reset = 1;
 		if (clocks==30) tb->m_core->io_cond0 = 1;
 		if (clocks==40)	tb->m_core->io_cond1 = 1;
 		if (clocks==50)	tb->m_core->reset = 0;
+		*/
 		
 		
 		
