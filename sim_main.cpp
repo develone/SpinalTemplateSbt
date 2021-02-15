@@ -48,10 +48,14 @@ int	main(int argc, char **argv) {
 
 	tb->opentrace("MyTopLevel.vcd");
 	tb->m_core->reset = 0;
-	for(unsigned clocks=0;
-		clocks < 1000;
-		 clocks++) {
+	for(unsigned clocks=0;clocks < 1000;clocks++) {
 		if (clocks==10) tb->m_core->reset = 1;
+		if (clocks==30) tb->m_core->io_cond0 = 1;
+		if (clocks==40)	tb->m_core->io_cond1 = 1;
+		if (clocks==50)	tb->m_core->reset = 0;
+		
+		
+		
 		tb->tick();
 		
 	}
