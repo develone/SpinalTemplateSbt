@@ -45,8 +45,10 @@ module UartCtrlUsageExample (
   wire                uartCtrl_1_io_read_valid;
   wire       [7:0]    uartCtrl_1_io_read_payload;
   wire                uartCtrl_1_io_uart_txd;
+  /* verilator lint_off UNUSED */
   wire                uartCtrl_1_io_readError;
   wire                uartCtrl_1_io_readBreak;
+  /* verilator lint_off UNUSED */
   wire       [0:0]    _zz_13;
   wire       [10:0]   _zz_14;
   reg        [7:0]    _zz_1;
@@ -136,7 +138,7 @@ module UartCtrlUsageExample (
 
 
 endmodule
-
+/* verilator lint_off DECLFILENAME */
 module UartCtrl (
   input      [2:0]    io_config_frame_dataLength,
   input      `UartStopType_defaultEncoding_type io_config_frame_stop,
@@ -258,7 +260,7 @@ module UartCtrl (
 
 
 endmodule
-
+/* verilator lint_off DECLFILENAME */
 module UartCtrlRx (
   input      [2:0]    io_configFrame_dataLength,
   input      `UartStopType_defaultEncoding_type io_configFrame_stop,
