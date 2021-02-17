@@ -1,0 +1,37 @@
+    .io_config_frame_dataLength    (_zz_7[2:0]                       ), //i
+    .io_config_frame_stop          (_zz_8                            ), //i
+    .io_config_frame_parity        (_zz_9[1:0]                       ), //i
+    .io_config_clockDivider        (_zz_10[19:0]                     ), //i
+    .io_write_valid                (write_m2sPipe_valid              ), //i
+    .io_write_ready                (uartCtrl_1_io_write_ready        ), //o
+    .io_write_payload              (write_m2sPipe_payload[7:0]       ), //i
+    .io_read_valid                 (uartCtrl_1_io_read_valid         ), //o
+    .io_read_ready                 (_zz_11                           ), //i
+    .io_read_payload               (uartCtrl_1_io_read_payload[7:0]  ), //o
+    .io_uart_txd                   (uartCtrl_1_io_uart_txd           ), //o
+    .io_uart_rxd                   (io_uart_rxd                      ), //i
+    .io_readError                  (uartCtrl_1_io_readError          ), //o
+    .io_writeBreak                 (_zz_12                           ), //i
+    .io_readBreak                  (uartCtrl_1_io_readBreak          ), //o
+    .clk                           (clk                              ), //i
+    .reset                         (reset                            )  //i
+
+
+****************************UartCtrl***********************************  
+io_config_frame_dataLength
+io_config_clockDivider
+io_write_valid
+												io_write_ready
+												io_read_payload
+												io_read_valid
+												io_uart_txd
+												io_readError
+												io_readBreak
+io_config_frame_stop
+io_config_frame_parity
+io_writeBreak
+io_uart_rxd												
+io_write_payload
+clk
+reset
+****************************UartCtrl***********************************

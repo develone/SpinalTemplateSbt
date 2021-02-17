@@ -47,14 +47,16 @@ int	main(int argc, char **argv) {
 
 
 	tb->opentrace("UartCtrlUsageExample.vcd");
-	//tb->m_core->reset = 0;
+	tb->m_core->reset = 0;
 	for(unsigned clocks=0;clocks < 10000;clocks++) {
-		/*
+		
 		if (clocks==10) tb->m_core->reset = 1;
-		if (clocks==30) tb->m_core->io_cond0 = 1;
-		if (clocks==40)	tb->m_core->io_cond1 = 1;
-		if (clocks==50)	tb->m_core->reset = 0;
-		*/
+		if (clocks==12)	tb->m_core->reset = 0;
+		if (clocks==30) tb->m_core->io_switchs = 65;
+		//if (clocks==31) tb->m_core->io_write_valid;
+		
+		//if (clocks==100) tb->m_core->io_switchs = 68;
+		//if (clocks==301) tb->m_core->io_write_valid;
 		
 		
 		

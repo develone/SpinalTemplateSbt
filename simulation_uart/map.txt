@@ -1,0 +1,54 @@
+    .io_configFrame_dataLength    (io_config_frame_dataLength[2:0]  ), //i
+    .io_configFrame_stop          (io_config_frame_stop             ), //i
+    .io_configFrame_parity        (io_config_frame_parity[1:0]      ), //i
+    .io_samplingTick              (clockDivider_tick                ), //i
+    .io_write_valid               (io_write_thrown_valid            ), //i
+    .io_write_ready               (tx_io_write_ready                ), //o
+    .io_write_payload             (io_write_thrown_payload[7:0]     ), //i
+    .io_cts                       (_zz_1                            ), //i
+    .io_txd                       (tx_io_txd                        ), //o
+    .io_break                     (io_writeBreak                    ), //i
+    .clk                          (clk                              ), //i
+    .reset                        (reset                            )  //i
+****************************UartCtrlTx*********************************
+io_configFrame_stop
+io_configFrame_parity
+io_samplingTick
+io_write_valid
+io_write_payload
+io_cts
+												io_write_ready												
+												io_txd
+io_break
+clk
+reset
+****************************UartCtrlTx*********************************
+    .io_configFrame_dataLength    (io_config_frame_dataLength[2:0]  ), //i
+    .io_configFrame_stop          (io_config_frame_stop             ), //i
+    .io_configFrame_parity        (io_config_frame_parity[1:0]      ), //i
+    .io_samplingTick              (clockDivider_tick                ), //i
+    .io_read_valid                (rx_io_read_valid                 ), //o
+    .io_read_ready                (io_read_ready                    ), //i
+    .io_read_payload              (rx_io_read_payload[7:0]          ), //o
+    .io_rxd                       (io_uart_rxd                      ), //i
+    .io_rts                       (rx_io_rts                        ), //o
+    .io_error                     (rx_io_error                      ), //o
+    .io_break                     (rx_io_break                      ), //o
+    .clk                          (clk                              ), //i
+    .reset                        (reset                            )  //i
+    
+****************************UartCtrlRx*********************************
+io_configFrame_dataLength
+io_configFrame_stop
+io_configFrame_parity
+io_samplingTick
+												io_read_valid
+io_read_ready
+												io_read_payload
+io_rxd
+												io_rts
+												io_error
+												io_break
+clk
+reset
+****************************UartCtrlRx*********************************
