@@ -41,7 +41,7 @@ public:
 	TESTB(void) : m_trace(NULL), m_tickcount(0l) {
 		m_core = new VA;
 		Verilated::traceEverOn(true);
-		m_core->clk = 0;
+		m_core->iClk = 0;
 		eval(); // Get our initial values set properly.
 	}
 	virtual ~TESTB(void) {
@@ -80,10 +80,10 @@ public:
 		// before the top of the clock.
 		eval();
 		if (m_trace) m_trace->dump((vluint64_t)(10*m_tickcount-2));
-		m_core->clk = 1;
+		m_core->iClk = 1;
 		eval();
 		if (m_trace) m_trace->dump((vluint64_t)(10*m_tickcount));
-		m_core->clk = 0;
+		m_core->iClk = 0;
 		eval();
 		if (m_trace) {
 			m_trace->dump((vluint64_t)(10*m_tickcount+5));

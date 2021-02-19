@@ -22,16 +22,16 @@ reg [5:0] pwrup;
 
 
 always @(posedge iClk) begin: PWRUPRST_LOGIC2
-    if (((iRst == 1) && (pwrup == 40))) begin
-        iRst <= 0;
+    if (((iRst == 0) && (pwrup == 40))) begin
+        iRst <= 1;
     end
     else begin
         if ((pwrup <= 60)) begin
             pwrup <= (pwrup + 1);
         end
     end
-    if ((pwrup == 60)) begin
-        iRst <= 1;
+    if ((pwrup == 50)) begin
+        iRst <= 0;
     end
 end
 
