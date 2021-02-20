@@ -12,7 +12,7 @@ class Timer(width:Int) extends Component {
     val tick = in Bool
     val clear = in Bool
     val limit = in UInt(width bits)
-    val full = in Bool
+    val full = out Bool
   }
 
   val counter = Reg(UInt(width bits))
