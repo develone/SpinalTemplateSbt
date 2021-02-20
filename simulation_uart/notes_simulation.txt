@@ -1,3 +1,4 @@
 verilator -Wall --trace   -cc UartCtrlUsageExample.v --exe --build sim_main.cpp
 verilator -Wall --trace   -cc pwruprst.v --exe --build sim_main.cpp
 verilator -Wall --trace   -cc LedGlow.v --exe --build sim_main.cpp
+verilator -Wall --trace   -cc Timer.v --exe --build sim_main.cpp
