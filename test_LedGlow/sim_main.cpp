@@ -32,27 +32,27 @@
 #include <sys/types.h>
 #include <signal.h>
 #include "verilated.h"
-#include "VUartCtrlUsageExample.h"
+#include "VLedGlow.h"
 #include "testb.h"
 
 
 int	main(int argc, char **argv) {
 	Verilated::commandArgs(argc, argv);
-	TESTB<VUartCtrlUsageExample>	*tb
-		= new TESTB<VUartCtrlUsageExample>;
+	TESTB<VLedGlow>	*tb
+		= new TESTB<VLedGlow>;
 
 	Verilated::traceEverOn(true);    // Verilator must compute traced signals
     VL_PRINTF("Enabling waves...\n");
 
 
 
-	tb->opentrace("UartCtrlUsageExample.vcd");
-	tb->m_core->reset = 0;
+	tb->opentrace("LedGlow.vcd");
+	//tb->m_core->reset = 0;
 	for(unsigned clocks=0;clocks < 10000;clocks++) {
 		
-		if (clocks==10) tb->m_core->reset = 1;
-		if (clocks==12)	tb->m_core->reset = 0;
-		if (clocks==30) tb->m_core->io_switchs = 65;
+		//if (clocks==10) tb->m_core->reset = 1;
+		//if (clocks==12)	tb->m_core->reset = 0;
+		//if (clocks==30) tb->m_core->io_switchs = 65;
 		//if (clocks==31) tb->m_core->io_write_valid;
 		
 		//if (clocks==100) tb->m_core->io_switchs = 68;
