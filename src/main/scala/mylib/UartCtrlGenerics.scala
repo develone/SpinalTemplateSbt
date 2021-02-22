@@ -263,7 +263,7 @@ class UartCtrlUsageExample extends Component{
 
   val uartCtrl: UartCtrl = UartCtrl(
     config = UartCtrlInitConfig(
-      baudrate = 921600,
+      baudrate = 115200,
       dataLength = 7,  // 8 bits
       parity = UartParityType.NONE,
       stop = UartStopType.ONE
@@ -275,17 +275,17 @@ class UartCtrlUsageExample extends Component{
   io.leds := uartCtrl.io.read.toFlow.toReg()
 
   //Write the value of switch on the uart each 4000 cycles
-  val write = Stream(Bits(8 bits))
-  write.valid := CounterFreeRun(2000).willOverflow
-  write.payload := io.switchs
-  write >-> uartCtrl.io.write
+  //val write = Stream(Bits(8 bits))
+  //write.valid := CounterFreeRun(2000).willOverflow
+  //write.payload := io.switchs
+  //write >-> uartCtrl.io.write
 
   //Write the 0x55 and then the value of switch on the uart each 4000 cycles
-//  val write = Stream(Fragment(Bits(8 bits)))
-//  write.valid := CounterFreeRun(4000).willOverflow
-//  write.fragment := io.switchs
-//  write.last := True
-//  write.m2sPipe().insertHeader(0x55).toStreamOfFragment >> uartCtrl.io.write
+  val write = Stream(Fragment(Bits(8 bits)))
+  write.valid := CounterFreeRun(4000).willOverflow
+  write.fragment := io.switchs
+  write.last := True
+  write.m2sPipe().insertHeader(0x55).toStreamOfFragment >> uartCtrl.io.write
 }
 
 
@@ -293,7 +293,7 @@ object UartCtrlUsageExampleVerilog{
   def main(args: Array[String]) {
     SpinalConfig(
       mode = Verilog,
-      defaultClockDomainFrequency=FixedFrequency(50 MHz)
+      defaultClockDomainFrequency=FixedFrequency(100 MHz)
     ).generate(new UartCtrlUsageExample)
   }
 }
