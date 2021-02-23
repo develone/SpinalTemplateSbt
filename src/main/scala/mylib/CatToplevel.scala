@@ -3,16 +3,16 @@ package mylib
 import spinal.core._
 import spinal.lib._
 
-class PLL extends BlackBox{
+class SB_PLL40_CORE extends BlackBox{
   val io = new Bundle{
-    val clkIn    = in Bool
-    val clkOut   = out Bool
-    val isLocked = out Bool
+    val REFERENCECLK    = in Bool
+    val PLLOUTCORE   = out Bool
+    val LOCK = out Bool
   }
 
   noIoPrefix()
 }
- 
+
 
 class CatTopLevel extends Component{
   val io = new Bundle {
@@ -23,9 +23,9 @@ class CatTopLevel extends Component{
 
   // Create an Area to manage all clocks and reset things
   val clkCtrl = new Area {
-    //Instanciate and drive the PLL
-    val pll = new PLL
-    pll.io.clkIn := io.clk100Mhz
+    //Instanciate and drive the SB_PLL40_CORE
+    val pll = new SB_PLL40_CORE
+    pll.io.REFERENCECLK := io.clk100Mhz
 
     //Create a new clock domain named 'core'
     val coreClockDomain = ClockDomain.internal(
@@ -34,9 +34,9 @@ class CatTopLevel extends Component{
     )                                      // by coreClockDomain users to do some calculations
 
     //Drive clock and reset signals of the coreClockDomain previously created
-    coreClockDomain.clock := pll.io.clkOut
+    coreClockDomain.clock := pll.io.PLLOUTCORE
     coreClockDomain.reset := ResetCtrl.asyncAssertSyncDeassert(
-      input =  ! pll.io.isLocked,
+      input =  ! pll.io.LOCK,
       clockDomain = coreClockDomain
     )
   }
