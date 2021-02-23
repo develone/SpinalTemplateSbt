@@ -16,7 +16,7 @@ class PLL extends BlackBox{
 
 class CatTopLevel extends Component{
   val io = new Bundle {
-    val aReset    = in Bool
+    //val aReset    = in Bool
     val clk100Mhz = in Bool
     val result    = out UInt(4 bits)
   }
@@ -36,7 +36,7 @@ class CatTopLevel extends Component{
     //Drive clock and reset signals of the coreClockDomain previously created
     coreClockDomain.clock := pll.io.clkOut
     coreClockDomain.reset := ResetCtrl.asyncAssertSyncDeassert(
-      input = io.aReset || ! pll.io.isLocked,
+      input =  ! pll.io.isLocked,
       clockDomain = coreClockDomain
     )
   }
