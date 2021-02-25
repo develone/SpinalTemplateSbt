@@ -4,6 +4,7 @@ import spinal.core._
 import spinal.lib._
 class BootResetTop() extends Component {
     val clk: Bool = in Bool
+    val reset: Bool = Bool
     val ca: ClockingArea = new ClockingArea(new ClockDomain(
       clock = clk,
       config = ClockDomainConfig(
