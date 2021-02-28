@@ -1,26 +1,30 @@
 // Generator : SpinalHDL v1.4.3    git head : adf552d8f500e7419fff395b7049228e4bc5de26
 // Component : Timer
-// Git hash  : bc7d809004d6a0595f5f1e457cb39c0bae8ac288
+// Git hash  : 9c13f210b31389c81a44fbd0081a6b175ec3617b
 
 
 
 module Timer (
   input               io_tick,
   input               io_clear,
-  input      [7:0]    io_limit,
+  input      [9:0]    io_limit,
   output              io_full,
-  input               clk
-  //input               reset
+  output     [9:0]    io_value,
+  input               clk,
+  /* verilator lint_off UNUSED */
+  input               reset
+  /* verilator lint_off UNUSED */
 );
-  reg        [7:0]    counter;
+  reg        [9:0]    counter;
 
-  assign io_full = (counter == io_limit);
+  assign io_full = ((counter == io_limit) && io_tick);
+  assign io_value = counter;
   always @ (posedge clk) begin
     if((io_tick && (! io_full)))begin
-      counter <= (counter + 8'h01);
+      counter <= (counter + 10'h001);
     end
     if(io_clear)begin
-      counter <= 8'h0;
+      counter <= 10'h0;
     end
   end
 

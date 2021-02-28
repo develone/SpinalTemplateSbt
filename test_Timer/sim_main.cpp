@@ -47,18 +47,20 @@ int	main(int argc, char **argv) {
 
 
 	tb->opentrace("Timer.vcd");
-	//tb->m_core->reset = 0;
+	tb->m_core->reset = 0;
+	//tb->m_core->io_clear=0;
 	for(unsigned clocks=0;clocks < 10000;clocks++) {
 		
-		if (clocks==10) tb->m_core->io_limit = 128;
+		if (clocks==10) tb->m_core->io_limit = 1000;
 		if (clocks==12)	tb->m_core->io_tick = 1;
 		//if (clocks==30) tb->m_core->io_switchs = 65;
 		//if (clocks==31) tb->m_core->io_write_valid;
 		
 		//if (clocks==100) tb->m_core->io_switchs = 68;
-		if (clocks==300) tb->m_core->io_clear=1;
-		if (clocks==301) tb->m_core->io_clear=0;
-		
+		if (clocks==1415) tb->m_core->reset=1;
+		if (clocks==1416) tb->m_core->reset=0;
+		if (clocks==2015) tb->m_core->io_clear=1;
+		if (clocks==2016) tb->m_core->io_clear=0;
 		
 		
 		tb->tick();
