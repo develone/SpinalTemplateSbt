@@ -61,6 +61,9 @@ int	main(int argc, char **argv) {
 		//if (clocks==1416) tb->m_core->reset=0;
 		if (clocks==30) tb->m_core->io_clear=1;
 		if (clocks==31) tb->m_core->io_clear=0;
+		if (clocks==5000) tb->m_core->reset=1;
+		if (clocks==5001) tb->m_core->reset=0;
+		
 		
 		tb->tick();
 		
