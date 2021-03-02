@@ -1,0 +1,6 @@
+ 
+# pin definitions 
+ 
+set_io iclk C8 
+set_io rx B5 
+set_io tx B3
