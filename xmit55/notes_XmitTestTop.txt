@@ -1,0 +1,116 @@
+XmitTestTop.v testing a wrapper for UartCtrlUsageExample.v
+baudrate = 115200
+defaultClockDomainFrequency=FixedFrequency(100 MHz)
+
+UartCtrlGenerics.scala -> src/main/scala/mylib/UartCtrlGenerics.scala
+lines 283-288 make this sending 55.
+ //Write the 0x55 and then the value of switch on the uart each 4000 cycles
+  val write = Stream(Fragment(Bits(8 bits)))
+  write.valid := CounterFreeRun(4000).willOverflow
+  write.fragment := io.switchs
+  write.last := True
+  write.m2sPipe().insertHeader(0x55).toStreamOfFragment >> uartCtrl.io.write
+
+
+Generate  UartCtrlUsageExample.v from src/main/scala/mylib/UartCtrlGenerics.scala
+
+sbt run
+[18] spinal.lib.com.uart.UartCtrlUsageExampleVerilog
+Enter number: 18
+
+cp UartCtrlUsageExample.v echotest
+
+UartCtrlUsageExample echotest(
+.io_uart_txd(tx),
+.io_uart_rxd(rx),
+.io_switchs(switchs),
+.io_leds(leds),
+.clk(iclk),
+.reset(areset)
+);
+yosys -l simple.log -p 'synth_ice40 -blif UartCtrlUsageExample.blif -json UartCtrlUsageExample.json' UartCtrlUsageExample.v
+Top module:  \UartCtrlUsageExample
+Used module:     \UartCtrl
+Used module:         \UartCtrlRx
+Used module:             \BufferCC
+Used module:         \UartCtrlTx
+=== UartCtrlUsageExample ===
+
+   Number of wires:                211
+   Number of wire bits:            479
+   Number of public wires:         211
+   Number of public wire bits:     479
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                242
+     SB_CARRY                       37
+     SB_DFF                          9
+     SB_DFFE                        24
+     SB_DFFER                        8
+     SB_DFFES                        4
+     SB_DFFR                        44
+     SB_DFFS                         4
+     SB_LUT4                       112
+
+Step1 
+Create EchoTestTop
+
+Step2 
+cat UartCtrlUsageExample.v >> XmitTestTop.v
+
+Step3 Synthesize EchoTestTop.v
+
+yosys -l simple.log -p 'synth_ice40 -blif XmitTestTop.blif -json XmitTestTop.json' XmitTestTop.v
+=== XmitTestTop ===
+
+   Number of wires:                194
+   Number of wire bits:            471
+   Number of public wires:         194
+   Number of public wire bits:     471
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                211
+     SB_CARRY                       45
+     SB_DFF                          3
+     SB_DFFE                         7
+     SB_DFFER                        8
+     SB_DFFES                        5
+     SB_DFFR                        40
+     SB_DFFS                         3
+     SB_LUT4                       100
+
+ 
+2.2.2. Analyzing design hierarchy..
+Top module:  \XmitTestTop
+Used module:     \UartCtrlUsageExample
+Used module:         \UartCtrl
+Used module:             \UartCtrlRx
+Used module:                 \BufferCC
+Used module:             \UartCtrlTx
+Used module:     \pwruprst
+
+Step4
+Create the EchoTestTop.asc file using  EchoTestTop.pcf & EchoTestTop.json
+
+nextpnr-ice40 --package ct256 --hx8k --pcf XmitTestTop.pcf --json XmitTestTop.json --asc XmitTestTop.asc
+
+
+Step5
+Test if clk is okay.
+
+icetime -d hx8k -c 100 XmitTestTop.asc
+// Reading input .asc file..
+// Reading 8k chipdb file..
+// Creating timing netlist..
+// Timing estimate: 6.73 ns (148.64 MHz)
+// Checking 10.00 ns (100.00 MHz) clock constraint: PASSED.
+
+Step6
+Create XmitTestTop.bin
+
+icepack XmitTestTop.asc XmitTestTop.bin
+
+-rw-r--r--  1 devel devel 135100 Mar  2 16:04 XmitTestTop.bin
+
