@@ -1,3 +1,6 @@
+The simulation created using https://zipcpu.com/tutorial/lsn-09-serialrx.pdf
+and the scala file "https://github.com/develone/SpinalTemplateSbt/blob/master/src/main/scala/mylib/UartCtrlGenerics.scala
+privided by PasCal++@volatile-static on "https://gitter.im/SpinalHDL/SpinalHDL"
 Creating a simulation to test UartCtrlUsageExample.v using ZipCPU ex-09-uartrx.tgz
 This simulation uses rxuart_tb.cpp, testb.h, uartsim.h, uartsim.cpp.  The Verilog
 rxuart.v and f_txuart.v.  
@@ -21,3 +24,12 @@ psalm.txt
 step1
 UartCtrlUsageExample.v was copied to rxuart.v.  The module UartCtrlUsageExample
 replace module rxuart.
+Made modoficatation rxuart.v, testb.h, rxuart_tb.cpp
+make 
+./rxuart_tb psalm.txt
+
+
+SUCCESS - all 0 characters matched
+PASS
+A rxuat.vcd is created.
+https://github.com/develone/SpinalTemplateSbt/blob/master/echotest/test_rx_ex-09/sim.png
