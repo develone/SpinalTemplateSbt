@@ -1,16 +1,30 @@
+`default_nettype	none
+
 module EchoTestTop (
-input iclk,
-input rx,
-output tx);
-reg areset;
-reg  [7:0] leds;
-reg  [7:0] switchs;
-wire clk;
-wire io_uart_txd;
-wire io_uart_rxd;
-wire [7:0]    io_leds;
-wire [7:0]    io_switchs;
-wire               reset;
+clk,
+io_uart_rxd,
+io_uart_txd);
+input clk;
+input io_uart_rxd;
+output io_uart_txd;
+
+wire reset;
+/* verilator lint_off UNUSED */
+wire [5:0] pwrup;
+/* verilator lint_off UNUSED */
+
+
+wire  [7:0] io_leds;
+
+/* verilator lint_off UNDRIVEN */
+wire  [7:0] io_switchs;
+/* verilator lint_off UNDRIVEN */
+
+pwruprst puprst (
+    clk,
+    reset,
+    pwrup
+);
 
 //These are the input outputs of the signals the 
 //wrapper is instanciating.
@@ -23,12 +37,12 @@ wire               reset;
 //  input               reset
 
 UartCtrlUsageExample echotest(
-.io_uart_txd(tx),
-.io_uart_rxd(rx),
-.io_switchs(switchs),
-.io_leds(leds),
-.clk(iclk),
-.reset(areset)
+io_uart_txd,
+io_uart_rxd,
+io_switchs,
+io_leds,
+clk,
+reset
 );
 endmodule
  // Generator : SpinalHDL v1.4.3    git head : adf552d8f500e7419fff395b7049228e4bc5de26
@@ -59,7 +73,7 @@ endmodule
 `define UartCtrlRxState_defaultEncoding_PARITY 3'b011
 `define UartCtrlRxState_defaultEncoding_STOP 3'b100
 
-
+/* verilator lint_off DECLFILENAME */
 module UartCtrlUsageExample (
   output              io_uart_txd,
   input               io_uart_rxd,
@@ -156,7 +170,9 @@ module UartCtrlUsageExample (
   end
 
   always @ (posedge clk or posedge reset) begin
+    /* verilator lint_off SYNCASYNCNET */
     if (reset) begin
+    /* verilator lint_off SYNCASYNCNET */
       _zz_4 <= 11'h0;
       write_m2sPipe_rValid <= 1'b0;
     end else begin
@@ -795,5 +811,38 @@ module BufferCC (
     end
   end
 
+
+endmodule
+module pwruprst (
+    clk,
+    reset,
+    pwrup
+);
+
+
+input clk;
+output reset;
+reg reset;
+output [5:0] pwrup;
+reg [5:0] pwrup;
+
+
+
+
+always @(posedge clk) begin: PWRUPRST_LOGIC2
+    /* verilator lint_off SYNCASYNCNET */
+    if (((reset == 0) && (pwrup == 40))) begin
+    /* verilator lint_off SYNCASYNCNET */
+        reset <= 1;
+    end
+    else begin
+        if ((pwrup <= 60)) begin
+            pwrup <= (pwrup + 1);
+        end
+    end
+    if ((pwrup == 60)) begin
+        reset <= 0;
+    end
+end
 
 endmodule

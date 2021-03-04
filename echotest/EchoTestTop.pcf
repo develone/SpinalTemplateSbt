@@ -1,6 +1,6 @@
  
 # pin definitions 
  
-set_io iclk C8 
-set_io rx B5 
-set_io tx B3
+set_io clk C8 
+set_io io_uart_rxd B5 
+set_io io_uart_txd B3

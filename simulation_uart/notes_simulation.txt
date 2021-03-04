@@ -4,3 +4,23 @@ verilator -Wall --trace   -cc LedGlow.v --exe --build sim_main.cpp
 verilator -Wall --trace   -cc Timer.v --exe --build sim_main.cpp
 verilator -Wall --trace   -cc CatTopLevel.v --exe --build sim_main.cpp
 verilator -Wall --trace   -cc BootResetTop.v --exe --build sim_main.cpp
+verilator -Wall --trace   -cc XmitTestTop.v --exe --build sim_main.cpp
+verilator -Wall --trace   -cc EchoTestTop.v --exe --build sim_main.cpp
+verilator -Wall --trace   -cc EchoTestTop.v --exe --build sim_main.cpp
+%Warning-SYNCASYNCNET: EchoTestTop.v:11:6: Signal flopped as both synchronous and async: 'EchoTestTop.reset'
+                       EchoTestTop.v:173:10: ... Location of async usage
+  173 |      if (reset) begin
+      |          ^~~~~
+                       EchoTestTop.v:831:12: ... Location of sync usage
+  831 |      if (((reset == 0) && (pwrup == 40))) begin
+      |            ^~~~~
+                       ... Use "/* verilator lint_off SYNCASYNCNET */" and lint_on around source to disable this message.
+%Error: Exiting due to 1 warning(s)
+
+		/* verilator lint_off SYNCASYNCNET */
+174    if (reset) begin
+		/* verilator lint_off SYNCASYNCNET */
+		
+		/* verilator lint_off SYNCASYNCNET */
+833    if (((reset == 0) && (pwrup == 40))) begin
+		/* verilator lint_off SYNCASYNCNET */
