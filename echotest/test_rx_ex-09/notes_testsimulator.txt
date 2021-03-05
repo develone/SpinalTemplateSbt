@@ -33,3 +33,6 @@ SUCCESS - all 0 characters matched
 PASS
 A rxuat.vcd is created.
 https://github.com/develone/SpinalTemplateSbt/blob/master/echotest/test_rx_ex-09/sim.png
+Need to increase the Verilog Baud rate to match the simulator.
+He restoreth my soul: he leadeth me in the paths of righteousness for his
+https://github.com/develone/SpinalTemplateSbt/blob/master/echotest/test_rx_ex-09/4MBsim.png
