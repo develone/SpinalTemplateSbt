@@ -37,7 +37,7 @@
 #include "uartsim.h"
 
 UARTSIM::UARTSIM(void) {
-	setup(25);	// Set us up for a baud rate of CLK/25
+	setup(868);	// Set us up for a baud rate of CLK/868
 	m_rx_baudcounter = 0;
 	m_tx_baudcounter = 0;
 	m_rx_state = RXIDLE;
