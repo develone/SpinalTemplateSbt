@@ -1,0 +1,6 @@
+ 
+# pin definitions 
+ 
+set_io clk C8 
+set_io io_uart_rxd B5 
+set_io io_uart_txd B3
