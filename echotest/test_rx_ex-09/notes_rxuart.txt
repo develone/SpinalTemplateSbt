@@ -1,0 +1,44 @@
+yosys -l simple.log -p 'synth_ice40 -blif rxuart.blif -json rxuart.json' rxuart.v
+=== rxuart ===
+
+   Number of wires:                230
+   Number of wire bits:            549
+   Number of public wires:         230
+   Number of public wire bits:     549
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                274
+     SB_CARRY                       46
+     SB_DFF                          9
+     SB_DFFE                        31
+     SB_DFFER                        8
+     SB_DFFES                        4
+     SB_DFFR                        44
+     SB_DFFS                         4
+     SB_LUT4                       128
+Top module:  \rxuart
+Used module:     \UartCtrl
+Used module:         \UartCtrlRx
+Used module:             \BufferCC
+Used module:         \UartCtrlTx
+Used module:     \pwruprst
+Removed 0 unused modules.
+
+
+nextpnr-ice40 --package ct256 --hx8k --pcf rxuart.pcf --json rxuart.json --asc rxuart.asc
+Info: constrained 'clk' to bel 'X17/Y33/io0'
+Info: constrained 'io_uart_rxd' to bel 'X7/Y33/io1'
+Info: constrained 'io_uart_txd' to bel 'X3/Y33/io0'
+ERROR: IO 'io_leds[7]' is unconstrained in PCF (override this error with --pcf-allow-unconstrained)
+ERROR: Loading PCF failed.
+0 warnings, 2 errors
+
+Next 2 steps can be preformed until nextpnr-ice40 works ok.
+
+icetime -d hx8k -c 100 rxuart.asc
+ 
+icepack rxuart.asc rxuart.bin
+
+ls -la rxuart.bin
+-rw-r--r-- 1 devel devel 135100 Mar  6 12:40 rxuart.bin
