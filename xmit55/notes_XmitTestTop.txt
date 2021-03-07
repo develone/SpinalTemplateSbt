@@ -1,6 +1,82 @@
+verilator -Wall --trace   -cc XmitTestTop.v --exe --build sim_main.cpp
+
+Creates  the obj_dir folder.  The file VXmitTestTop is the executable that creates XmitTestTop.vcd
+
+
+sim_main.d           VXmitTestTop__ALL.cpp    VXmitTestTop__Syms.cpp
+sim_main.o           VXmitTestTop__ALL.d      VXmitTestTop__Syms.h
+verilated.d          VXmitTestTop__ALL.o      VXmitTestTop__Trace.cpp
+verilated.o          VXmitTestTop_classes.mk  VXmitTestTop__Trace__Slow.cpp
+verilated_vcd_c.d    VXmitTestTop.cpp         VXmitTestTop__ver.d
+verilated_vcd_c.o    VXmitTestTop.h           VXmitTestTop__verFiles.dat
+VXmitTestTop         VXmitTestTop.mk          XmitTestTop.vcd
+VXmitTestTop__ALL.a  VXmitTestTop__Slow.cpp
+
+cd obj_dir
+
+./VXmitTestTop 
+Enabling waves...
+
+
+Simulation complete
+
+Creates XmitTestTop.vcd
+
+gtkwave XmitTestTop.vcd
+
 XmitTestTop.v testing a wrapper for UartCtrlUsageExample.v
 baudrate = 115200
 defaultClockDomainFrequency=FixedFrequency(100 MHz)
+
+`default_nettype	none
+module XmitTestTop (
+clk,
+io_uart_rxd,
+io_uart_txd
+);
+
+input clk;
+input io_uart_rxd;
+output io_uart_txd;
+
+wire reset;
+/* verilator lint_off UNUSED */
+wire [5:0] pwrup;
+/* verilator lint_off UNUSED */
+
+
+wire  [7:0] io_leds;
+
+/* verilator lint_off UNDRIVEN */
+wire  [7:0] io_switchs;
+/* verilator lint_off UNDRIVEN */
+pwruprst puprst (
+    clk,
+    reset,
+    pwrup
+);
+
+//These are the input outputs of the signals the 
+//wrapper is instanciating.
+
+//  output              io_uart_txd,
+//  input               io_uart_rxd,
+//  input      [7:0]    io_switchs,
+//  output     [7:0]    io_leds,
+//  input               clk,
+//  input               reset
+
+UartCtrlUsageExample xmittest(
+io_uart_txd,
+io_uart_rxd,
+io_switchs,
+io_leds,
+clk,
+reset
+);
+
+
+endmodule
 
 UartCtrlGenerics.scala -> src/main/scala/mylib/UartCtrlGenerics.scala
 lines 283-288 make this sending 55.
@@ -15,8 +91,8 @@ lines 283-288 make this sending 55.
 Generate  UartCtrlUsageExample.v from src/main/scala/mylib/UartCtrlGenerics.scala
 
 sbt run
-[18] spinal.lib.com.uart.UartCtrlUsageExampleVerilog
-Enter number: 18
+[xx] spinal.lib.com.uart.UartCtrlUsageExampleVerilog
+Enter number: xx
 
 cp UartCtrlUsageExample.v echotest
 
