@@ -298,7 +298,8 @@ int	main(int argc, char **argv) {
 		// Set up our baud rate, stop bits, parity, etc.
 		// properly
 		//baudclocks = tb->m_core->o_setup;
-		//uart->setup(baudclocks);
+		baudclocks = 868;
+		uart->setup(baudclocks);
 
 		// Make sure the input starts idle, as it should
 		tb->m_core->io_uart_rxd = 1;
@@ -326,10 +327,10 @@ int	main(int argc, char **argv) {
 
 			// If we've managed to receive a character, output
 			// it to the standard output port
-			//if (tb->m_core->o_wr) {
-				//num_received++;
-				//putchar(tb->m_core->o_data);
-			//}
+			if (tb->m_core->o_wr) {
+				num_received++;
+				putchar(tb->m_core->io_leds);
+			}
 		}
 
 		// Quietly exit successfully if we've gotten this far
