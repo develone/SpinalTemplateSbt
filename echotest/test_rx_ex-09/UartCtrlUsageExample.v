@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.4.3    git head : adf552d8f500e7419fff395b7049228e4bc5de26
 // Component : UartCtrlUsageExample
-// Git hash  : 38cb353799cf5c86f8d8882c01a685986b13fd87
+// Git hash  : 2ac9c10524173af712ea38a41f308f2cc0f40041
 
 
 `define UartParityType_defaultEncoding_type [1:0]
@@ -35,147 +35,101 @@ module UartCtrlUsageExample (
   input               clk,
   input               reset
 );
-  wire       [2:0]    _zz_12;
-  wire       `UartStopType_defaultEncoding_type _zz_13;
-  wire       `UartParityType_defaultEncoding_type _zz_14;
-  wire       [19:0]   _zz_15;
-  wire                _zz_16;
-  wire                _zz_17;
+  wire       [2:0]    _zz_7;
+  wire       `UartStopType_defaultEncoding_type _zz_8;
+  wire       `UartParityType_defaultEncoding_type _zz_9;
+  wire       [19:0]   _zz_10;
+  wire                _zz_11;
+  wire                _zz_12;
   wire                uartCtrl_1_io_write_ready;
   wire                uartCtrl_1_io_read_valid;
   wire       [7:0]    uartCtrl_1_io_read_payload;
   wire                uartCtrl_1_io_uart_txd;
   wire                uartCtrl_1_io_readError;
   wire                uartCtrl_1_io_readBreak;
-  wire                _zz_18;
-  wire       [0:0]    _zz_19;
-  wire       [11:0]   _zz_20;
+  wire       [0:0]    _zz_13;
+  wire       [10:0]   _zz_14;
   reg        [7:0]    _zz_1;
   wire                write_valid;
   wire                write_ready;
-  wire                write_payload_last;
-  wire       [7:0]    write_payload_fragment;
+  wire       [7:0]    write_payload;
   wire                _zz_2;
-  reg        [11:0]   _zz_3;
-  reg        [11:0]   _zz_4;
+  reg        [10:0]   _zz_3;
+  reg        [10:0]   _zz_4;
   wire                _zz_5;
   wire                _zz_6;
   wire                write_m2sPipe_valid;
   wire                write_m2sPipe_ready;
-  wire                write_m2sPipe_payload_last;
-  wire       [7:0]    write_m2sPipe_payload_fragment;
+  wire       [7:0]    write_m2sPipe_payload;
   reg                 write_m2sPipe_rValid;
-  reg                 write_m2sPipe_rData_last;
-  reg        [7:0]    write_m2sPipe_rData_fragment;
-  reg                 _zz_7;
-  wire                _zz_8;
-  reg                 _zz_9;
-  reg        [7:0]    _zz_10;
-  reg                 _zz_11;
+  reg        [7:0]    write_m2sPipe_rData;
 
-  assign _zz_18 = (! _zz_11);
-  assign _zz_19 = _zz_2;
-  assign _zz_20 = {11'd0, _zz_19};
+  assign _zz_13 = _zz_2;
+  assign _zz_14 = {10'd0, _zz_13};
   UartCtrl uartCtrl_1 (
-    .io_config_frame_dataLength    (_zz_12[2:0]                      ), //i
-    .io_config_frame_stop          (_zz_13                           ), //i
-    .io_config_frame_parity        (_zz_14[1:0]                      ), //i
-    .io_config_clockDivider        (_zz_15[19:0]                     ), //i
-    .io_write_valid                (_zz_7                            ), //i
+    .io_config_frame_dataLength    (_zz_7[2:0]                       ), //i
+    .io_config_frame_stop          (_zz_8                            ), //i
+    .io_config_frame_parity        (_zz_9[1:0]                       ), //i
+    .io_config_clockDivider        (_zz_10[19:0]                     ), //i
+    .io_write_valid                (write_m2sPipe_valid              ), //i
     .io_write_ready                (uartCtrl_1_io_write_ready        ), //o
-    .io_write_payload              (_zz_10[7:0]                      ), //i
+    .io_write_payload              (write_m2sPipe_payload[7:0]       ), //i
     .io_read_valid                 (uartCtrl_1_io_read_valid         ), //o
-    .io_read_ready                 (_zz_16                           ), //i
+    .io_read_ready                 (_zz_11                           ), //i
     .io_read_payload               (uartCtrl_1_io_read_payload[7:0]  ), //o
     .io_uart_txd                   (uartCtrl_1_io_uart_txd           ), //o
     .io_uart_rxd                   (io_uart_rxd                      ), //i
     .io_readError                  (uartCtrl_1_io_readError          ), //o
-    .io_writeBreak                 (_zz_17                           ), //i
+    .io_writeBreak                 (_zz_12                           ), //i
     .io_readBreak                  (uartCtrl_1_io_readBreak          ), //o
     .clk                           (clk                              ), //i
     .reset                         (reset                            )  //i
   );
-  assign _zz_15 = 20'h0006c;
-  assign _zz_12 = 3'b111;
-  assign _zz_14 = `UartParityType_defaultEncoding_NONE;
-  assign _zz_13 = `UartStopType_defaultEncoding_ONE;
-  assign _zz_17 = 1'b0;
+  assign _zz_10 = 20'h0006c;
+  assign _zz_7 = 3'b111;
+  assign _zz_9 = `UartParityType_defaultEncoding_NONE;
+  assign _zz_8 = `UartStopType_defaultEncoding_ONE;
+  assign _zz_12 = 1'b0;
   assign io_uart_txd = uartCtrl_1_io_uart_txd;
-  assign _zz_16 = 1'b1;
+  assign _zz_11 = 1'b1;
   assign io_leds = _zz_1;
-  assign _zz_5 = (_zz_4 == 12'hf9f);
+  assign _zz_5 = (_zz_4 == 11'h7cf);
   assign _zz_6 = (_zz_5 && _zz_2);
   always @ (*) begin
     if(_zz_6)begin
-      _zz_3 = 12'h0;
+      _zz_3 = 11'h0;
     end else begin
-      _zz_3 = (_zz_4 + _zz_20);
+      _zz_3 = (_zz_4 + _zz_14);
     end
     if(1'b0)begin
-      _zz_3 = 12'h0;
+      _zz_3 = 11'h0;
     end
   end
 
   assign _zz_2 = 1'b1;
   assign write_valid = _zz_6;
-  assign write_payload_fragment = io_switchs;
-  assign write_payload_last = 1'b1;
+  assign write_payload = io_switchs;
   assign write_ready = ((1'b1 && (! write_m2sPipe_valid)) || write_m2sPipe_ready);
   assign write_m2sPipe_valid = write_m2sPipe_rValid;
-  assign write_m2sPipe_payload_last = write_m2sPipe_rData_last;
-  assign write_m2sPipe_payload_fragment = write_m2sPipe_rData_fragment;
-  assign write_m2sPipe_ready = (_zz_8 && (! _zz_11));
-  always @ (*) begin
-    _zz_7 = 1'b0;
-    if(write_m2sPipe_valid)begin
-      _zz_7 = 1'b1;
-    end
-  end
-
-  always @ (*) begin
-    _zz_9 = 1'b0;
-    if(write_m2sPipe_valid)begin
-      if(_zz_18)begin
-        _zz_9 = write_m2sPipe_payload_last;
-      end
-    end
-  end
-
-  always @ (*) begin
-    _zz_10 = 8'h55;
-    if(write_m2sPipe_valid)begin
-      if(_zz_18)begin
-        _zz_10 = write_m2sPipe_payload_fragment;
-      end
-    end
-  end
-
-  assign _zz_8 = uartCtrl_1_io_write_ready;
+  assign write_m2sPipe_payload = write_m2sPipe_rData;
+  assign write_m2sPipe_ready = uartCtrl_1_io_write_ready;
   always @ (posedge clk) begin
     if(uartCtrl_1_io_read_valid)begin
       _zz_1 <= uartCtrl_1_io_read_payload;
     end
     if(write_ready)begin
-      write_m2sPipe_rData_last <= write_payload_last;
-      write_m2sPipe_rData_fragment <= write_payload_fragment;
+      write_m2sPipe_rData <= write_payload;
     end
   end
 
   always @ (posedge clk or posedge reset) begin
     if (reset) begin
-      _zz_4 <= 12'h0;
+      _zz_4 <= 11'h0;
       write_m2sPipe_rValid <= 1'b0;
-      _zz_11 <= 1'b1;
     end else begin
       _zz_4 <= _zz_3;
       if(write_ready)begin
         write_m2sPipe_rValid <= write_valid;
-      end
-      if((_zz_7 && _zz_8))begin
-        _zz_11 <= 1'b0;
-        if(_zz_9)begin
-          _zz_11 <= 1'b1;
-        end
       end
     end
   end
