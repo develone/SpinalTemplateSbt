@@ -33,6 +33,7 @@ module rxuart (
   input               io_uart_rxd,
   input      [7:0]    io_switchs,
   output     [7:0]    io_leds,
+  output              o_wr,
   input               clk
   //input               reset
 );
@@ -66,7 +67,14 @@ module rxuart (
   wire       [7:0]    write_m2sPipe_payload;
   reg                 write_m2sPipe_rValid;
   reg        [7:0]    write_m2sPipe_rData;
-
+  
+  reg dum;
+  
+  always @ (posedge clk) begin
+     dum <= uartCtrl_1_io_read_valid; 
+  end
+  assign o_wr = dum;
+  
   assign _zz_13 = _zz_2;
   assign _zz_14 = {10'd0, _zz_13};
   /* verilator lint_off UNUSED */
@@ -127,7 +135,7 @@ module rxuart (
   assign write_m2sPipe_valid = write_m2sPipe_rValid;
   assign write_m2sPipe_payload = write_m2sPipe_rData;
   assign write_m2sPipe_ready = uartCtrl_1_io_write_ready;
-  always @ (posedge clk) begin
+  always @ (posedge clk) begin 
     if(uartCtrl_1_io_read_valid)begin
       _zz_1 <= uartCtrl_1_io_read_payload;
     end
