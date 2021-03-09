@@ -1,0 +1,24 @@
+PasCal++@volatile-static
+Scala code 
+  //Write the value of switch on the uart each 4000 cycles
+  val write = Stream(Bits(8 bits))
+  write.valid := CounterFreeRun(2000).willOverflow
+  write.payload := io.switchs
+  write >-> uartCtrl.io.write
+
+
+  assign _zz_2 = 1'b1;
+  assign write_valid = _zz_6;
+  assign write_payload = io_switchs;
+  assign write_ready = ((1'b1 && (! write_m2sPipe_valid)) || write_m2sPipe_ready);
+  assign write_m2sPipe_valid = write_m2sPipe_rValid;
+  assign write_m2sPipe_payload = write_m2sPipe_rData;
+  assign write_m2sPipe_ready = uartCtrl_1_io_write_ready;
+  always @ (posedge clk) begin 
+    if(uartCtrl_1_io_read_valid)begin
+      _zz_1 <= uartCtrl_1_io_read_payload;
+    end
+    if(write_ready)begin
+      write_m2sPipe_rData <= write_payload;
+    end
+  end
